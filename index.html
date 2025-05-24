@@ -24,8 +24,9 @@ fetch('up.json')
   .then(function (response) { return response.json() })
   .then(function (data) {
     const at = new Date(data.at).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' })
+    const [seconds, minutes, hours] = data.up.split(':').toReversed()
 
-    document.getElementById('up').textContent = data.up
+    document.getElementById('up').textContent = new Intl.DurationFormat(undefined, { style: "narrow" }).format({ hours, minutes, seconds })
     document.getElementById('at').textContent = at
     document.getElementById('at').dateTime = data.at
   })
