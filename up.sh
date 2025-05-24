@@ -4,3 +4,4 @@ printf '{\n\t"at": "%s",\n\t"up": "%s"\n}' \
   > up.json
 git add up.json
 git cmms up
+git push up
