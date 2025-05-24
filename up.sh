@@ -1,7 +1,15 @@
-printf '{\n  "at": "%s",\n  "up": "%s"\n}' \
+systemstats -B $(cat /private/var/db/systemstats/current_boot_uuid) > systemstats.txt & sleep 6 && kill %1
+
+printf '{
+  "at": "%s",
+  "up": "%s"
+}' \
   "$(date -Iseconds)" \
-  "$(uptime | awk -F'(  up |, )' '{ print ($3 ~ /user/) ? $2 : $2 " " $3 }')" \
+  $(grep 'Total Time:' systemstats.txt | awk -F '(\t)' '{ print $2 }') \
   > up.json
+
+rm -rf systemstats.txt
+
 git add up.json
 git cmms up
 git push up
