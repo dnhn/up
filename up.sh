@@ -4,7 +4,7 @@ printf '{
   "at": "%s",
   "up": "%s"
 }' \
-  "$(date -Iseconds)" \
+  $(date -Iseconds) \
   $(grep 'Total Time:' systemstats.txt | awk -F '(\t)' '{ print $2 }') \
   > up.json
 
