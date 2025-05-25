@@ -24,9 +24,12 @@ fetch('up.json')
   .then(function (response) { return response.json() })
   .then(function (data) {
     const at = new Date(data.at).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' })
-    const [seconds, minutes, hours] = data.up.split(':').toReversed()
+    const [seconds, minutes, h] = data.up.split(':').toReversed()
+    const days = h > 24 ? Math.floor(h / 24) : undefined
+    const hours = h > 24 ? h % 24 : h
+    const up = new Intl.DurationFormat(undefined, { style: "narrow" }).format({ days, hours, minutes, seconds })
 
-    document.getElementById('up').textContent = new Intl.DurationFormat(undefined, { style: "narrow" }).format({ hours, minutes, seconds })
+    document.getElementById('up').textContent = up
     document.getElementById('at').textContent = at
     document.getElementById('at').dateTime = data.at
   })
