@@ -26,12 +26,36 @@ const $up = document.getElementById('up')
 fetch('up.json')
   .then(function (response) { return response.json() })
   .then(function (data) {
-    const at = new Date(data.at).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' })
+    const atDate = new Date(data.at)
+    const at = atDate.toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' })
 
     $at.textContent = at
     $at.dateTime = data.at
-    $up.textContent = format(data.up)
+
+    function update() {
+      const elapsed = Math.round((new Date() - atDate) / 1000)
+      const estimation = toHMS(toSeconds(data.up) + elapsed)
+
+      $up.textContent = format(estimation)
+    }
+
+    update()
+    setInterval(update, 1000)
   })
+
+function toSeconds(hms) {
+  const [s, m, h] = hms.split(':').map(Number).toReversed()
+
+  return s + (m * 60) + (h * 3600)
+}
+
+function toHMS(seconds) {
+  const h = String(Math.floor(seconds / 3600)).padStart(2, '0')
+  const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0')
+  const s = String(seconds % 60).padStart(2, '0')
+
+  return `${h}:${m}:${s}`
+}
 
 function format(hms) {
   const [seconds, minutes, h] = hms.split(':').reverse()
