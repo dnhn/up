@@ -20,19 +20,26 @@ html { color-scheme: dark; font-family: monospace; }
 <main><div id="up"></div><time id="at"></time></main>
 
 <script>
+const $at = document.getElementById('at')
+const $up = document.getElementById('up')
+
 fetch('up.json')
   .then(function (response) { return response.json() })
   .then(function (data) {
     const at = new Date(data.at).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' })
-    const [seconds, minutes, h] = data.up.split(':').toReversed()
-    const days = h > 24 ? Math.floor(h / 24) : undefined
-    const hours = h > 24 ? h % 24 : h
-    const up = new Intl.DurationFormat(undefined, { style: "narrow" }).format({ days, hours, minutes, seconds })
 
-    document.getElementById('up').textContent = up
-    document.getElementById('at').textContent = at
-    document.getElementById('at').dateTime = data.at
+    $at.textContent = at
+    $at.dateTime = data.at
+    $up.textContent = format(data.up)
   })
+
+function format(hms) {
+  const [seconds, minutes, h] = hms.split(':').reverse()
+  const days = Math.floor(h / 24)
+  const hours = h % 24
+
+  return new Intl.DurationFormat(undefined, { style: "narrow" }).format({ days, hours, minutes, seconds })
+}
 </script>
 
 </body>
