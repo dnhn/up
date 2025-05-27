@@ -44,7 +44,7 @@ fetch('up.json')
   })
 
 function toSeconds(hms) {
-  const [s, m, h] = hms.split(':').map(Number).toReversed()
+  const [s, m, h] = hms.split(':').map(Number).reverse()
 
   return s + (m * 60) + (h * 3600)
 }
