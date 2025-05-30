@@ -32,15 +32,37 @@ fetch('up.json')
     $at.textContent = at
     $at.dateTime = data.at
 
-    function update() {
-      const elapsed = Math.round((new Date() - atDate) / 1000)
-      const estimation = toHMS(toSeconds(data.up) + elapsed)
+    const up = toSeconds(data.up)
+    const elapsed = Math.round((new Date() - atDate) / 1000)
+    const estimation = up + elapsed
+    const duration = 3000
 
-      $up.textContent = format(estimation)
+    function animate() {
+      const start = performance.now()
+
+      function frame(timestamp) {
+        const progress = Math.min((timestamp - start) / duration, 1)
+        const current = Math.round(up + (estimation - up) * progress)
+
+        update(current)
+
+        if (progress < 1) {
+          requestAnimationFrame(frame)
+        } else {
+          const liveStart = new Date()
+
+          setInterval(function () {
+            const liveElapsed = Math.round((new Date() - liveStart) / 1000)
+
+            update(estimation + liveElapsed)
+          }, 1000)
+        }
+      }
+
+      requestAnimationFrame(frame)
     }
 
-    update()
-    setInterval(update, 1000)
+    animate()
   })
 
 function toSeconds(hms) {
@@ -63,6 +85,10 @@ function format(hms) {
   const hours = h % 24
 
   return new Intl.DurationFormat(undefined, { style: "narrow" }).format({ days, hours, minutes, seconds })
+}
+
+function update(seconds) {
+  $up.textContent = format(toHMS(seconds))
 }
 </script>
 
