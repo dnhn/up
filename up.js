@@ -1,0 +1,67 @@
+const $at = document.getElementById('at')
+const $up = document.getElementById('up')
+const rate = 50000
+
+fetch('up.json')
+  .then(function (response) { return response.json() })
+  .then(function (data) {
+    const atDate = new Date(data.at)
+    const at = atDate.toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' })
+
+    $up.textContent = format(data.up)
+    $at.textContent = at
+    $at.dateTime = data.at
+
+    const up = toSeconds(data.up)
+    const elapsed = Math.round((new Date() - atDate) / 1000)
+    const estimation = up + elapsed
+    const duration = (estimation - up) / rate * 1000
+    const start = performance.now()
+
+    function frame(timestamp) {
+      const progress = Math.min((timestamp - start) / duration, 1)
+      const current = Math.round(up + (estimation - up) * progress)
+
+      update(current)
+
+      if (progress < 1) {
+        requestAnimationFrame(frame)
+      } else {
+        const liveStart = new Date()
+
+        setInterval(function () {
+          const liveElapsed = Math.round((new Date() - liveStart) / 1000)
+
+          update(estimation + liveElapsed)
+        }, 1000)
+      }
+    }
+
+    requestAnimationFrame(frame)
+  })
+
+function toSeconds(hms) {
+  const [s, m, h] = hms.split(':').map(Number).reverse()
+
+  return s + (m * 60) + (h * 3600)
+}
+
+function toHMS(seconds) {
+  const h = String(Math.floor(seconds / 3600)).padStart(2, '0')
+  const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0')
+  const s = String(seconds % 60).padStart(2, '0')
+
+  return `${h}:${m}:${s}`
+}
+
+function format(hms) {
+  const [seconds, minutes, h] = hms.split(':').reverse()
+  const days = Math.floor(h / 24)
+  const hours = h % 24
+
+  return new Intl.DurationFormat(undefined, { style: "narrow" }).format({ days, hours, minutes, seconds })
+}
+
+function update(seconds) {
+  $up.textContent = format(toHMS(seconds))
+}
