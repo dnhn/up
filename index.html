@@ -36,33 +36,28 @@ fetch('up.json')
     const elapsed = Math.round((new Date() - atDate) / 1000)
     const estimation = up + elapsed
     const duration = 3000
+    const start = performance.now()
 
-    function animate() {
-      const start = performance.now()
+    function frame(timestamp) {
+      const progress = Math.min((timestamp - start) / duration, 1)
+      const current = Math.round(up + (estimation - up) * progress)
 
-      function frame(timestamp) {
-        const progress = Math.min((timestamp - start) / duration, 1)
-        const current = Math.round(up + (estimation - up) * progress)
+      update(current)
 
-        update(current)
+      if (progress < 1) {
+        requestAnimationFrame(frame)
+      } else {
+        const liveStart = new Date()
 
-        if (progress < 1) {
-          requestAnimationFrame(frame)
-        } else {
-          const liveStart = new Date()
+        setInterval(function () {
+          const liveElapsed = Math.round((new Date() - liveStart) / 1000)
 
-          setInterval(function () {
-            const liveElapsed = Math.round((new Date() - liveStart) / 1000)
-
-            update(estimation + liveElapsed)
-          }, 1000)
-        }
+          update(estimation + liveElapsed)
+        }, 1000)
       }
-
-      requestAnimationFrame(frame)
     }
 
-    animate()
+    requestAnimationFrame(frame)
   })
 
 function toSeconds(hms) {
