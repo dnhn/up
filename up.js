@@ -9,10 +9,12 @@ fetch('up.json')
   .then(function (data) {
     const atDate = new Date(data.at)
     const at = atDate.toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' })
+    const atFull = atDate.toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'full' })
 
     format(data.up)
     $at.textContent = at
     $at.dateTime = data.at
+    $at.title = atFull
 
     const up = toSeconds(data.up)
     const elapsed = Math.round((new Date() - atDate) / 1000)

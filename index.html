@@ -7,20 +7,32 @@
 <meta name="viewport" content="width=device-width, viewport-fit=cover" />
 <meta name="color-scheme" content="dark light" />
 <style>
+* { box-sizing: border-box; }
 html { font-family: monospace; }
-#d { font-size: xx-large; }
-#hms { font-size: xxx-large; }
-#at { font-size: x-large; }
+body { margin: 0; padding: 1rem; height: 100svh; }
+main {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  width: 8ch;
+  height: 80svh;
+  text-align: right;
+  font-size: 15vw;
+}
+section { font-size: initial; line-height: initial; }
+#d { font-size: 10vw; }
+#hms { font-size: 15vw; }
+#last { margin-top: 2rem; font-size: large; }
 </style>
 <script src="/up.js" defer></script>
 </head>
 <body>
 <main>
-<div id="up">
-<div id="d"></div>
-<div id="hms"><span id="h"></span>:<span id="m"></span>:<span id="s"></span></div>
-</div>
-<time id="at"></time>
+  <section>
+    <div id="d"></div>
+    <div id="hms"><span id="h"></span>:<span id="m"></span>:<span id="s"></span></div>
+    <div id="last">Last updated <time id="at"></time></div>
+  </section>
 </main>
 </body>
 </html>
