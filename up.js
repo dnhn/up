@@ -1,6 +1,5 @@
 const $at = document.getElementById('at')
 const $up = document.getElementById('up')
-const rate = 50000
 
 fetch('up.json')
   .then(function (response) { return response.json() })
@@ -15,7 +14,12 @@ fetch('up.json')
     const up = toSeconds(data.up)
     const elapsed = Math.round((new Date() - atDate) / 1000)
     const estimation = up + elapsed
+
+    const minRate = 50
+    const multiplier = .5
+    const rate = minRate + (elapsed * multiplier)
     const duration = (estimation - up) / rate * 1000
+
     const start = performance.now()
 
     function frame(timestamp) {
