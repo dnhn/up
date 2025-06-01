@@ -8,12 +8,19 @@
 <style>
 :root { color-scheme: dark light; }
 html { font-family: monospace; }
-#up { font-size: xxx-large; }
-#at { font-size: xx-large; }
+#d { font-size: xx-large; }
+#hms { font-size: xxx-large; }
+#at { font-size: x-large; }
 </style>
 <script src="/up.js" defer></script>
 </head>
 <body>
-<main><div id="up"></div><time id="at"></time></main>
+<main>
+<div id="up">
+<div id="d"></div>
+<div id="hms"><span id="h"></span>:<span id="m"></span>:<span id="s"></span></div>
+</div>
+<time id="at"></time>
+</main>
 </body>
 </html>

@@ -1,13 +1,16 @@
 const $at = document.getElementById('at')
-const $up = document.getElementById('up')
+const $d = document.getElementById('d')
+const $h = document.getElementById('h')
+const $m = document.getElementById('m')
+const $s = document.getElementById('s')
 
 fetch('up.json')
   .then(function (response) { return response.json() })
   .then(function (data) {
     const atDate = new Date(data.at)
-    const at = atDate.toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' })
+    const at = atDate.toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' })
 
-    $up.textContent = format(data.up)
+    format(data.up)
     $at.textContent = at
     $at.dateTime = data.at
 
@@ -51,9 +54,9 @@ function toSeconds(hms) {
 }
 
 function toHMS(seconds) {
-  const h = String(Math.floor(seconds / 3600)).padStart(2, '0')
-  const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0')
-  const s = String(seconds % 60).padStart(2, '0')
+  const h = Math.floor(seconds / 3600)
+  const m = Math.floor((seconds % 3600) / 60)
+  const s = seconds % 60
 
   return `${h}:${m}:${s}`
 }
@@ -63,9 +66,12 @@ function format(hms) {
   const days = Math.floor(h / 24)
   const hours = h % 24
 
-  return new Intl.DurationFormat(undefined, { style: "narrow" }).format({ days, hours, minutes, seconds })
+  $d.textContent = new Intl.DurationFormat().format({ days })
+  $h.textContent = String(hours).padStart(2, '0')
+  $m.textContent = String(minutes).padStart(2, '0')
+  $s.textContent = String(seconds).padStart(2, '0')
 }
 
 function update(seconds) {
-  $up.textContent = format(toHMS(seconds))
+  format(toHMS(seconds))
 }
