@@ -22,7 +22,7 @@ main {
 section { font-size: initial; line-height: initial; }
 #d { font-size: 10vw; }
 #hms { font-size: 15vw; }
-#last { margin-top: 2rem; font-size: large; }
+#at { display: block; margin-top: 2rem; font-size: large; }
 </style>
 <script src="/up.js" defer></script>
 </head>
@@ -30,8 +30,8 @@ section { font-size: initial; line-height: initial; }
 <main>
   <section>
     <div id="d"></div>
-    <div id="hms"><span id="h"></span>:<span id="m"></span>:<span id="s"></span></div>
-    <div id="last">Last updated <time id="at"></time></div>
+    <div id="hms"><span id="h">00</span>:<span id="m">00</span>:<span id="s">00</span></div>
+    <time id="at"></time>
   </section>
 </main>
 </body>

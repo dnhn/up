@@ -12,7 +12,7 @@ fetch('up.json')
     const atFull = atDate.toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'full' })
 
     format(data.up)
-    $at.textContent = at
+    $at.textContent = 'Updated ' + at
     $at.dateTime = data.at
     $at.title = atFull
 
