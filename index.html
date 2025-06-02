@@ -9,6 +9,10 @@
 <link rel="preload" href="/fonts/mona-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/monaspace-neon.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+:root {
+  --main-font-size: 14vw;
+  --sub-font-size: 9vw;
+}
 @font-face {
   font-family: MonaSans;
   src: url('/fonts/mona-sans.woff2') format('woff2 supports variations'),
@@ -35,17 +39,17 @@ main {
   height: 80svh;
   text-align: right;
   font-family: Monaspace, monospace;
+  font-size: var(--main-font-size);
   font-variation-settings: 'wght' 600, 'wdth' 120, 'slnt' 0;
-  font-size: 15vw;
 }
 section { font-size: initial; }
 .loading :where(#d, #hms, #at) { opacity: 0; }
 #d {
-  font-size: 10vw;
+  font-size: var(--sub-font-size);
   font-variation-settings: 'wght' 300, 'wdth' 110, 'slnt' 0;
   transition: opacity 1s;
 }
-#hms { font-size: 15vw; transition: opacity 1s ease-in; }
+#hms { font-size: var(--main-font-size); transition: opacity 1s ease-in; }
 #at {
   margin-top: 2rem;
   display: block;
