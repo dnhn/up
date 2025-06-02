@@ -12,9 +12,10 @@ fetch('up.json')
     const atFull = atDate.toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'full' })
 
     format(data.up)
-    $at.textContent = 'Updated ' + at
+    $at.textContent = at
     $at.dateTime = data.at
     $at.title = atFull
+    document.documentElement.classList.remove('loading')
 
     const up = toSeconds(data.up)
     const elapsed = Math.round((new Date() - atDate) / 1000)
