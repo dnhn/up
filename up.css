@@ -24,21 +24,36 @@
 
 html { font-family: MonaSans, sans-serif; }
 
-body { padding: 1rem; height: 100svh; }
+body { padding: 3rem 1rem; height: 100svh; }
 
 main {
   margin-inline: auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
   width: 8ch;
-  height: 80svh;
+  height: 100%;
   text-align: right;
   font-family: Monaspace, monospace;
   font-size: var(--main-font-size);
   font-variation-settings: 'wght' 600, 'wdth' 120, 'slnt' 0;
 }
 
-section { font-size: initial; }
+footer {
+  font-family: MonaSans, sans-serif;
+  font-size: initial;
+  font-variation-settings: 'wght' 500, 'ital' 0, 'wdth' 125;
+
+  * ~ * { margin-left: 1rem; }
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 70svh;
+  font-size: initial;
+}
 
 .loading :where(#d, #hms, #at) { opacity: 0; }
 
