@@ -6,9 +6,26 @@
 <meta name="description" content="personal uptime" />
 <meta name="viewport" content="width=device-width, viewport-fit=cover" />
 <meta name="color-scheme" content="dark light" />
+<link rel="preload" href="/fonts/mona-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/monaspace-neon.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+@font-face {
+  font-family: MonaSans;
+  src: url('/fonts/mona-sans.woff2') format('woff2 supports variations'),
+    url('/fonts/mona-sans.woff2') format('woff2-variations');
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+  font-display: swap;
+}
+@font-face {
+  font-family: Monaspace;
+  src: url('/fonts/monaspace-neon.woff2') format('woff2');
+  font-weight: 200 800;
+  font-stretch: 100% 125%;
+  font-display: swap;
+}
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding:0; }
-html { font-family: monospace; }
+html { font-family: MonaSans, sans-serif; }
 body { padding: 1rem; height: 100svh; }
 main {
   margin-inline: auto;
@@ -17,13 +34,25 @@ main {
   width: 8ch;
   height: 80svh;
   text-align: right;
+  font-family: Monaspace, monospace;
+  font-variation-settings: 'wght' 600, 'wdth' 120, 'slnt' 0;
   font-size: 15vw;
 }
 section { font-size: initial; }
 .loading :where(#d, #hms, #at) { opacity: 0; }
-#d { font-size: 10vw; transition: opacity 1s; }
+#d {
+  font-size: 10vw;
+  font-variation-settings: 'wght' 300, 'wdth' 110, 'slnt' 0;
+  transition: opacity 1s;
+}
 #hms { font-size: 15vw; transition: opacity 1s ease-in; }
-#at { margin-top: 2rem; display: block; transition: opacity 2s ease-in; }
+#at {
+  margin-top: 2rem;
+  display: block;
+  font-family: MonaSans, sans-serif;
+  font-variation-settings: 'ital' 10, 'wdth' 125;
+  transition: opacity 2s ease-in;
+}
 </style>
 <script src="/up.js" defer></script>
 </head>
