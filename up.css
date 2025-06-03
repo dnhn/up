@@ -43,6 +43,7 @@ footer {
   font-family: MonaSans, sans-serif;
   font-size: initial;
   font-variation-settings: 'wght' 500, 'ital' 0, 'wdth' 125;
+  transition: opacity .5s ease-in;
 
   * ~ * { margin-left: 1rem; }
 }
@@ -55,7 +56,7 @@ section {
   font-size: initial;
 }
 
-.loading :where(#d, #hms, #at) { opacity: 0; }
+.loading :where(footer, #d, #hms, #at) { opacity: 0; }
 
 #d {
   font-size: var(--sub-font-size);
