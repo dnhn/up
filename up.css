@@ -43,7 +43,7 @@ main {
   text-align: right;
   font-family: Monaspace, monospace;
   font-size: var(--main-font-size);
-  font-variation-settings: 'wght' 600, 'wdth' 120, 'slnt' 0;
+  font-variation-settings: 'wght' 600, 'wdth' 125, 'slnt' 0;
 }
 
 footer {
