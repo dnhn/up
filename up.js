@@ -71,7 +71,7 @@ function format(hms) {
   const hours = h % 24
 
   document.title = 'uptime: ' + new Intl.DurationFormat(undefined, { style: 'narrow' }).format({ days, hours, minutes })
-  $d.textContent = new Intl.DurationFormat().format({ days })
+  $d.textContent = new Intl.DurationFormat().format({ days }) || '\u00A0'
   $h.textContent = String(hours).padStart(2, '0')
   $m.textContent = String(minutes).padStart(2, '0')
   $s.textContent = String(seconds).padStart(2, '0')
