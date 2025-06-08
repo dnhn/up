@@ -1,4 +1,4 @@
-systemstats -B $(cat /private/var/db/systemstats/current_boot_uuid) > systemstats.txt & sleep 10 && kill %1
+systemstats -B $(cat /private/var/db/systemstats/current_boot_uuid) > systemstats.txt
 
 printf '{
   "at": "%s",
