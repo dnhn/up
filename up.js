@@ -5,6 +5,8 @@ const $m = document.getElementById('m')
 const $s = document.getElementById('s')
 
 document.fonts.ready.then(function () {
+  document.documentElement.classList.remove('loading')
+
   fetch('up.json')
     .then(function (response) { return response.json() })
     .then(function (data) {
@@ -16,7 +18,6 @@ document.fonts.ready.then(function () {
       $at.textContent = at
       $at.dateTime = data.at
       $at.title = atFull
-      document.documentElement.classList.remove('loading')
 
       const up = toSeconds(data.up)
       const elapsed = Math.round((new Date() - atDate) / 1000)
