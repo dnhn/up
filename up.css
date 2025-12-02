@@ -43,13 +43,13 @@ main {
   text-align: right;
   font-family: Monaspace, monospace;
   font-size: var(--main-font-size);
-  font-variation-settings: 'wght' 600, 'wdth' 125, 'slnt' 0;
+  font-variation-settings: 'wght' 600, 'wdth' 125;
 }
 
 footer {
   font-family: MonaSans, sans-serif;
   font-size: initial;
-  font-variation-settings: 'wght' 500, 'ital' 0, 'wdth' 125;
+  font-variation-settings: 'wght' 500, 'wdth' 125;
   transition: opacity .5s ease-in;
 
   * ~ * { margin-left: 1rem; }
@@ -67,7 +67,7 @@ section {
 
 #d {
   font-size: var(--sub-font-size);
-  font-variation-settings: 'wght' 300, 'wdth' 110, 'slnt' 0;
+  font-variation-settings: 'wght' 300, 'wdth' 110;
   transition: opacity 1s;
 }
 
