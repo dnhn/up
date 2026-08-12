@@ -1,14 +1,10 @@
-systemstats -B $(cat /private/var/db/systemstats/current_boot_uuid) | head -n 20 > systemstats.txt
-
 printf '{
   "at": "%s",
-  "up": "%s"
+  "boot": %d
 }' \
-  $(date -Iseconds) \
-  $(grep 'Total Time:' systemstats.txt | awk -F '(\t)' '{ print $2 }') \
+  "$(date -Iseconds)" \
+  "$(sysctl -n kern.boottime | awk -F '[^0-9]+' '{ print $2 }')" \
   > up.json
-
-rm -rf systemstats.txt
 
 git add up.json
 git cmms up

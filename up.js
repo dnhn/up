@@ -13,49 +13,52 @@ document.fonts.ready.then(function () {
       const atDate = new Date(data.at)
       const at = atDate.toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' })
       const atFull = atDate.toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'full' })
+      const up = Math.round(atDate.getTime() / 1000) - data.boot
 
-      format(data.up)
+      update(up)
       $at.textContent = at
       $at.dateTime = data.at
       $at.title = atFull
 
-      const up = toSeconds(data.up)
-      const elapsed = Math.round((new Date() - atDate) / 1000)
-      const estimation = up + elapsed
+      const estimation = Math.max(Math.round(Date.now() / 1000) - data.boot, up)
+      const elapsed = estimation - up
 
       const minRate = 50
       const multiplier = .5
       const rate = minRate + (elapsed * multiplier)
-      const duration = (estimation - up) / rate * 1000
+      const duration = elapsed / rate * 1000
 
       const start = performance.now()
 
+      if (duration > 0) {
+        requestAnimationFrame(frame)
+      } else {
+        update(estimation)
+        live()
+      }
+
       function frame(timestamp) {
         const progress = Math.min((timestamp - start) / duration, 1)
-        const current = Math.round(up + (estimation - up) * progress)
+        const current = Math.round(up + (elapsed * progress))
         update(current)
 
         if (progress < 1) {
           requestAnimationFrame(frame)
         } else {
-          const liveStart = new Date()
-
-          setInterval(function () {
-            const liveElapsed = Math.round((new Date() - liveStart) / 1000)
-            update(estimation + liveElapsed)
-          }, 1000)
+          live()
         }
       }
 
-      requestAnimationFrame(frame)
+      function live() {
+        const liveStart = new Date()
+
+        setInterval(function () {
+          const liveElapsed = Math.round((new Date() - liveStart) / 1000)
+          update(estimation + liveElapsed)
+        }, 1000)
+      }
     })
 })
-
-function toSeconds(hms) {
-  const [s, m, h] = hms.split(':').map(Number).reverse()
-
-  return s + (m * 60) + (h * 3600)
-}
 
 function toHMS(seconds) {
   const h = Math.floor(seconds / 3600)
